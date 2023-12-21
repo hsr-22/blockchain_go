@@ -24,3 +24,21 @@ Hashing functions are widely used to check the consistency of data. Some softwar
 1. In blockchain, hashing is used to guarantee the consistency of a block. 
 
 2. The input data for a hashing algorithm contains the hash of the previous block, thus making it quite difficult to modify a block in the chain (*one has to recalculate its hash and hashes of all the blocks after it*).
+
+# Hashcash
+
+Bitcoin uses Hashcash (a Proof-of-Work algorithm that was initially developed to prevent email spam).
+
+Hashcash is a brute force algorithm, hence computationally expensive.
+
+Steps involved for implementing hashcash:
+
+1. Take some publicly known data (in case of email, it’s receiver’s email address; in case of Bitcoin, it’s block headers).
+
+2. Add a counter to it (starts from 0).
+
+3. Get a hash of the ```data + counter``` combination.
+
+4. Check that the hash meets certain "<u>requirements</u>" (_depending on the specific implementation_).
+    - If it does, you're done.
+    - Else, increase the counter and repeat steps 3 and 4.
