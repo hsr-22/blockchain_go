@@ -13,7 +13,8 @@ var (
 	maxNonce = math.MaxInt64
 )
 
-const targetBits = 24 // In Bitcoin, “target bits” is the block header storing the difficulty at which the block was mined
+const targetBits = 24 // 24 bits = 3 bytes = 6 hex digits
+// In Bitcoin, “target bits” is the block header storing the difficulty at which the block was mined
 
 // ProofOfWork represents a proof-of-work
 type ProofOfWork struct {
