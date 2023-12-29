@@ -92,7 +92,7 @@ func (bc *Blockchain) FindUnspentTransactions(address string) []Transaction {
 			}
 
 			// Check if the transaction is a coinbase
-			if tx.IsCoinbase() == false {
+			if !tx.IsCoinbase() {
 				for _, in := range tx.Vin {
 					if in.CanUnlockOutputWith(address) {
 						inTxID := hex.EncodeToString(in.Txid)
@@ -165,7 +165,7 @@ func dbExists() bool {
 
 // NewBlockchain creates a new Blockchain with genesis Block
 func NewBlockchain(address string) *Blockchain {
-	if dbExists() == false {
+	if !dbExists() {
 		fmt.Println("No existing blockchain found. Create one first.")
 		os.Exit(1)
 	}

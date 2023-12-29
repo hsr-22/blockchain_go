@@ -59,6 +59,7 @@ func NewGenesisBlock(coinbase *Transaction) *Block {
 	return NewBlock([]*Transaction{coinbase}, []byte{})
 }
 
+// DeserializeBlock deserializes a block
 func DeserializeBlock(d []byte) *Block {
 	var block Block
 
