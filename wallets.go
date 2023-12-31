@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/elliptic"
 	"encoding/gob"
+	"io/ioutil"
 	"log"
 	"os"
 )
@@ -16,7 +17,9 @@ type Wallets struct {
 func NewWallets() (*Wallets, error) {
 	wallets := Wallets{}
 	wallets.Wallets = make(map[string]*Wallet)
+
 	err := wallets.LoadFromFile()
+
 	return &wallets, err
 }
 
@@ -52,7 +55,7 @@ func (ws *Wallets) LoadFromFile() error {
 		return err
 	}
 
-	fileContent, err := os.ReadFile(walletFile)
+	fileContent, err := ioutil.ReadFile(walletFile)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -75,13 +78,14 @@ func (ws Wallets) SaveToFile() {
 	var content bytes.Buffer
 
 	gob.Register(elliptic.P256())
+
 	encoder := gob.NewEncoder(&content)
 	err := encoder.Encode(ws)
 	if err != nil {
 		log.Panic(err)
 	}
 
-	err = os.WriteFile(walletFile, content.Bytes(), 0644)
+	err = ioutil.WriteFile(walletFile, content.Bytes(), 0644)
 	if err != nil {
 		log.Panic(err)
 	}
