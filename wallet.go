@@ -64,7 +64,7 @@ func ValidateAddress(address string) bool {
 
 	targetChecksum := checksum(append([]byte{version}, pubKeyHash...)) // targetChecksum is the checksum of version and pubKeyHash
 
-	return bytes.Equal(actualChecksum, targetChecksum)
+	return bytes.Compare(actualChecksum, targetChecksum) == 0
 }
 
 // Checksum generates a checksum for a public key

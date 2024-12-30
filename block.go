@@ -17,6 +17,7 @@ type Block struct {
 	Nonce         int
 }
 
+// Serialize serializes the block
 func (b *Block) Serialize() []byte {
 	var result bytes.Buffer
 	encoder := gob.NewEncoder(&result)
