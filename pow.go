@@ -13,7 +13,7 @@ var (
 	maxNonce = math.MaxInt64
 )
 
-const targetBits = 24 // 24 bits = 3 bytes = 6 hex digits
+const targetBits = 16 // 24 bits = 3 bytes = 6 hex digits
 // In Bitcoin, “target bits” is the block header storing the difficulty at which the block was mined
 
 // ProofOfWork represents a proof-of-work
