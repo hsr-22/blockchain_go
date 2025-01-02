@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"crypto/sha256"
 	"encoding/gob"
 	"log"
 	"time"
@@ -32,15 +31,15 @@ func (b *Block) Serialize() []byte {
 
 // HashTransactions returns a hash of the transactions in the block
 func (b *Block) HashTransactions() []byte {
-	var txHashes [][]byte
-	var txHash [32]byte
+	var transactions [][]byte // A slice of byte slices
 
 	for _, tx := range b.Transactions {
-		txHashes = append(txHashes, tx.ID)
+		transactions = append(transactions, tx.Serialize()) // Serialize each transaction and append it to the slice
 	}
-	txHash = sha256.Sum256(bytes.Join(txHashes, []byte{}))
+	mTree := NewMerkleTree(transactions) // Create a new Merkle tree from the transactions
 
-	return txHash[:]
+	// The root node of the Merkle tree is the hash of all the transactions, and hence will serve as the unique identifier of the block
+	return mTree.RootNode.Data 
 }
 
 // NewBlock creates and returns Block
